@@ -645,50 +645,172 @@ ${(goals["færdighedsmål"] || []).join("\n")}
         
         reflectionSections.forEach(section => {
           if (activity.reflection[section.key]) {
-            // Check if we need a new page
-            if (yPosition > pageHeight - 80) {
-              doc.addPage();
-              yPosition = margin;
-            }
+    activities.forEach((activity, index) => {
+      const addNewPageIfNeeded = (requiredSpace = 60) => {
+        if (yPosition > pageHeight - requiredSpace) {
+          doc.addPage();
+          // Add header to new page
+          doc.setFillColor(59, 130, 246);
+          doc.rect(0, 0, pageWidth, 25, 'F');
+          doc.setTextColor(255, 255, 255);
+          doc.setFontSize(18);
+          doc.setFont('helvetica', 'bold');
+          doc.text('Mine Praktikaktiviteter', margin, 18);
+          doc.setFontSize(10);
+          doc.setFont('helvetica', 'normal');
+          doc.text(`Genereret: ${new Date().toLocaleDateString('da-DK')}`, pageWidth - 80, 18);
+          yPosition = 40;
+        }
+      };
 
-            doc.setFillColor(243, 244, 246);
-            doc.rect(margin, yPosition, maxWidth, 60, 'F');
-            
-            doc.setTextColor(75, 85, 99);
-            doc.setFontSize(11);
-            doc.setFont('helvetica', 'bold');
-            doc.text(section.title, margin + 15, yPosition + 20);
-            
-            doc.setTextColor(55, 65, 81);
-            doc.setFontSize(10);
-            doc.setFont('helvetica', 'normal');
-            
-            const questionLines = doc.splitTextToSize(activity.reflection[section.key], maxWidth - 20);
-            let questionY = yPosition + 35;
-            questionLines.forEach(line => {
-              if (questionY > yPosition + 55) {
-                // Extend the box if needed
-                doc.setFillColor(243, 244, 246);
-                doc.rect(margin, yPosition + 60, maxWidth, 20, 'F');
-                yPosition += 20;
-              }
-              doc.text(line, margin + 10, questionY);
-              questionY += 5;
-            });
-            
-            yPosition += 75;
-          }
+      addNewPageIfNeeded(100);
+
+      // Activity header
+      doc.setFillColor(237, 72, 153);
+      doc.rect(margin, yPosition - 15, pageWidth - 2 * margin, 25, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(14);
+      doc.setFont('helvetica', 'bold');
+      doc.text(`Aktivitet ${index + 1}`, margin + 5, yPosition);
+      yPosition += 30;
+
+      // Activity title
+      doc.setTextColor(31, 41, 55);
+      doc.setFontSize(16);
+      doc.setFont('helvetica', 'bold');
+      const titleLines = doc.splitTextToSize(`Titel: ${activity.title}`, pageWidth - 2 * margin);
+      titleLines.forEach(line => {
+        doc.text(line, margin, yPosition);
+        yPosition += 8;
+      });
+      yPosition += 10;
+
+      addNewPageIfNeeded(80);
+
+      // Goals section
+      doc.setFillColor(16, 185, 129);
+      doc.rect(margin, yPosition - 15, pageWidth - 2 * margin, 20, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Formål og læringsmål:', margin + 10, yPosition - 5);
+      yPosition += 15;
+
+      doc.setTextColor(0, 0, 0);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      activity.goals.forEach(goal => {
+        const goalLines = doc.splitTextToSize(`• ${goal}`, pageWidth - 2 * margin - 10);
+        goalLines.forEach(line => {
+          addNewPageIfNeeded(20);
+          doc.text(line, margin + 5, yPosition);
+          yPosition += 6;
         });
-      }
+        yPosition += 2;
+      });
+      yPosition += 10;
+
+      addNewPageIfNeeded(80);
+
+      // Steps section
+      doc.setFillColor(16, 185, 129);
+      doc.rect(margin, yPosition - 15, pageWidth - 2 * margin, 20, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Trin-for-trin gennemførelse:', margin + 10, yPosition - 5);
+      yPosition += 15;
+
+      doc.setTextColor(0, 0, 0);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      activity.steps.forEach(step => {
+        const stepLines = doc.splitTextToSize(step, pageWidth - 2 * margin - 10);
+        stepLines.forEach(line => {
+          addNewPageIfNeeded(20);
+          doc.text(line, margin + 5, yPosition);
+          yPosition += 6;
+        });
+        yPosition += 4;
+      });
+      yPosition += 10;
+
+      addNewPageIfNeeded(120);
+
+      // Reflection section
+      doc.setFillColor(139, 92, 246);
+      doc.rect(margin, yPosition - 15, pageWidth - 2 * margin, 20, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Refleksion:', margin + 10, yPosition - 5);
+      yPosition += 25;
+
+      // Reflection questions
+      const reflectionTypes = [
+        { key: 'oplevelse', title: 'Oplevelse', color: [243, 244, 246] },
+        { key: 'refleksion', title: 'Refleksion', color: [243, 244, 246] },
+        { key: 'teori', title: 'Teori', color: [243, 244, 246] },
+        { key: 'handling', title: 'Handling', color: [243, 244, 246] }
+      ];
+
+      reflectionTypes.forEach(type => {
+        if (activity.reflection && activity.reflection[type.key]) {
+          addNewPageIfNeeded(50);
+          
+          // Question box
+          doc.setFillColor(...type.color);
+          const questionHeight = 40;
+          doc.rect(margin, yPosition - 10, pageWidth - 2 * margin, questionHeight, 'F');
+          
+          doc.setTextColor(75, 85, 99);
+          doc.setFontSize(11);
+          doc.setFont('helvetica', 'bold');
+          doc.text(type.title, margin + 10, yPosition);
+          
+          doc.setTextColor(55, 65, 81);
+          doc.setFontSize(10);
+          doc.setFont('helvetica', 'normal');
+          const questionLines = doc.splitTextToSize(activity.reflection[type.key], pageWidth - 2 * margin - 20);
+          let questionY = yPosition + 8;
+          questionLines.forEach(line => {
+            doc.text(line, margin + 5, questionY);
+            questionY += 5;
+          });
+          
+          yPosition += questionHeight + 10;
+        }
+      });
+
+      // User reflections section
+      addNewPageIfNeeded(60);
+      doc.setFillColor(255, 241, 138);
+      doc.rect(margin, yPosition - 15, pageWidth - 2 * margin, 20, 'F');
+      doc.setTextColor(146, 64, 14);
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Mine refleksioner:', margin + 10, yPosition - 5);
+      yPosition += 15;
+
+      doc.setTextColor(0, 0, 0);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      const userReflection = reflections[index] || 'Ingen refleksioner tilføjet endnu.';
+      const reflectionLines = doc.splitTextToSize(userReflection, pageWidth - 2 * margin - 10);
+      reflectionLines.forEach(line => {
+        addNewPageIfNeeded(20);
+        doc.text(line, margin + 5, yPosition);
+        yPosition += 6;
+      });
       yPosition += 20;
-      
-      // Separator linje mellem aktiviteter (undtagen efter sidste)
-      if (idx < activities.length - 1) {
-        checkPageBreak(25);
-        doc.setLineWidth(0.5);
+
+      // Add separator line between activities
+      if (index < activities.length - 1) {
+        addNewPageIfNeeded(20);
         doc.setDrawColor(209, 213, 219);
-        doc.line(margin, yPosition - 10, pageWidth - margin, yPosition - 10);
-        yPosition += 5;
+        doc.setLineWidth(0.5);
+        doc.line(margin, yPosition, pageWidth - margin, yPosition);
+        yPosition += 20;
       }
     });
     
