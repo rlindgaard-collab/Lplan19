@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { jsPDF } from "jspdf";
 
 // --- Helper: robust JSON coercion for model output ---
+
+// --- Helper: robust JSON coercion for model output ---
 function coerceActivityJSON(raw) {
   if (!raw || typeof raw !== "string") return null;
   let s = raw.trim();
@@ -30,30 +32,46 @@ function coerceActivityJSON(raw) {
   try {
     const obj = JSON.parse(s);
 
-    // Normalize types: goals/steps may be string → make arrays
+    // Normalize goals to array
     if (obj && obj.goals && !Array.isArray(obj.goals)) {
       if (typeof obj.goals === "string") {
-        obj.goals = obj.goals.split(/\r?\n|\u2022|\-|\*/).map(t => t.trim()).filter(Boolean);
+        obj.goals = obj.goals.split(/\r?\n|•|-|\*/).map(t => t.trim()).filter(Boolean);
       } else {
         obj.goals = [String(obj.goals)];
       }
     }
+
+    // Normalize steps to array without double numbering
     if (obj && obj.steps && !Array.isArray(obj.steps)) {
       if (typeof obj.steps === "string") {
-        obj.steps = obj.steps.split(/\r?\n|\d+\.|\u2022|\-|\*/).map(t => t.trim()).filter(Boolean);
+        obj.steps = obj.steps.split(/\r?\n|\d+\.\s|•|-|\*/).map(t => t.trim()).filter(Boolean);
       } else {
         obj.steps = [String(obj.steps)];
       }
     }
-    // Ensure reflection object exists
-    if (obj && typeof obj.reflection !== "object") {
-      obj.reflection = {};
+    if (obj && Array.isArray(obj.steps)) {
+      obj.steps = obj.steps.map(s =>
+        s.replace(/^\d+[\.\)]\s*/, "").trim() // fjerner "1. ", "2)" osv.
+      ).filter(Boolean);
     }
+
+    // Normalize reflection fields
+    if (obj && obj.reflection) {
+      for (let key of ["oplevelse", "refleksion", "teori", "handling"]) {
+        if (typeof obj.reflection[key] === "string") {
+          obj.reflection[key] = obj.reflection[key]
+            .replace(/\s*\n+\s*/g, " ") // lav ét afsnit
+            .trim();
+        }
+      }
+    }
+
     return obj;
   } catch (e) {
     return null;
   }
 }
+
 
 // Hent pdfjs direkte fra CDN
 import * as pdfjsLib from "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.min.mjs";
@@ -408,7 +426,7 @@ ${(goals["færdighedsmål"] || []).join("\n")}
           doc.setTextColor(0, 0, 0);
           const steps = Array.isArray(jsonData.steps) ? jsonData.steps : [jsonData.steps];
           steps.forEach((step, stepIdx) => {
-            const stepText = `${stepIdx + 1}. ${step}`;
+            const stepText = `• ${step}`;
             checkPageBreak(15);
             const stepLines = doc.splitTextToSize(stepText, maxWidth - 10);
             doc.text(stepLines, margin + 5, yPosition);
