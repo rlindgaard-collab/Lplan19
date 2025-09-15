@@ -287,8 +287,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
     let yPosition = headerHeight + 20;
     
     // Helper function to check if content fits on current page
-    const checkPageBreak = (requiredHeight) => {
-      if (yPosition + requiredHeight > pageHeight - footerHeight) {
+      // Check if we need a new page for activity header
+      if (yPosition > pageHeight - 150) {
         doc.addPage();
         addHeader();
         yPosition = headerHeight + 20;
@@ -487,22 +487,199 @@ ${(goals["færdighedsmål"] || []).join("\n")}
       doc.setFillColor(254, 240, 138); // Gul farve
       doc.rect(margin, yPosition - 5, maxWidth, 30, 'F');
       doc.setTextColor(146, 64, 14);
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(12);
-      doc.text('Mine refleksioner:', margin + 9, yPosition + 12);
-      yPosition += 35;
-      
-      // Refleksioner indhold
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(10);
-      doc.setTextColor(0, 0, 0);
-      const reflectionText = act.reflection || "Ingen refleksioner tilføjet endnu.";
-      const reflectionLines = doc.splitTextToSize(reflectionText, maxWidth - 10);
-      reflectionLines.forEach(line => {
-        checkPageBreak(15);
-        doc.text(line, margin + 5, yPosition);
-        yPosition += 5;
-      });
+      // Activity title
+      if (activity.title) {
+        doc.setTextColor(31, 41, 55);
+        doc.setFontSize(16);
+        doc.setFont('helvetica', 'bold');
+        const titleLines = doc.splitTextToSize(`Titel: ${activity.title}`, maxWidth);
+        titleLines.forEach(line => {
+          if (yPosition > pageHeight - 30) {
+            doc.addPage();
+            yPosition = margin;
+          }
+          doc.text(line, margin, yPosition);
+          yPosition += 8;
+        });
+        yPosition += 10;
+      }
+
+      // Goals section
+      if (activity.goals && activity.goals.length > 0) {
+        // Check if we need a new page for goals section
+        if (yPosition > pageHeight - 100) {
+          doc.addPage();
+          // Add header to new page
+          doc.setFillColor(59, 130, 246);
+          doc.rect(0, 0, pageWidth, 85, 'F');
+          
+          doc.setTextColor(255, 255, 255);
+          doc.setFontSize(18);
+          doc.setFont('helvetica', 'bold');
+          doc.text('Mine Praktikaktiviteter', margin, 35);
+          
+          doc.setFontSize(10);
+          doc.setFont('helvetica', 'normal');
+          doc.text(`Genereret: ${today}`, pageWidth - 100, 35);
+          
+          yPosition = 100;
+        }
+
+        doc.setFillColor(16, 185, 129);
+        doc.rect(margin, yPosition, maxWidth, 30, 'F');
+        
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Formål og læringsmål:', margin + 15, yPosition + 20);
+        
+        yPosition += 45;
+        
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        
+        activity.goals.forEach(goal => {
+          const goalLines = doc.splitTextToSize(`• ${goal}`, maxWidth - 10);
+          goalLines.forEach(line => {
+            if (yPosition > pageHeight - 30) {
+              doc.addPage();
+              yPosition = margin;
+            }
+            doc.text(line, margin + 10, yPosition);
+            yPosition += 5;
+          });
+          yPosition += 5;
+        });
+        yPosition += 10;
+      }
+
+      // Steps section
+      if (activity.steps && activity.steps.length > 0) {
+        // Check if we need a new page for steps section
+        if (yPosition > pageHeight - 100) {
+          doc.addPage();
+          // Add header to new page
+          doc.setFillColor(59, 130, 246);
+          doc.rect(0, 0, pageWidth, 85, 'F');
+          
+          doc.setTextColor(255, 255, 255);
+          doc.setFontSize(18);
+          doc.setFont('helvetica', 'bold');
+          doc.text('Mine Praktikaktiviteter', margin, 35);
+          
+          doc.setFontSize(10);
+          doc.setFont('helvetica', 'normal');
+          doc.text(`Genereret: ${today}`, pageWidth - 100, 35);
+          
+          yPosition = 100;
+        }
+
+        doc.setFillColor(16, 185, 129);
+        doc.rect(margin, yPosition, maxWidth, 30, 'F');
+        
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Trin-for-trin gennemførelse:', margin + 15, yPosition + 20);
+        
+        yPosition += 45;
+        
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        
+        activity.steps.forEach(step => {
+          const stepLines = doc.splitTextToSize(step, maxWidth - 10);
+          stepLines.forEach(line => {
+            if (yPosition > pageHeight - 30) {
+              doc.addPage();
+              yPosition = margin;
+            }
+            doc.text(line, margin + 10, yPosition);
+            yPosition += 5;
+          });
+          yPosition += 8;
+        });
+        yPosition += 10;
+      }
+
+      // Reflection section
+      if (activity.reflection) {
+        // Check if we need a new page for reflection section
+        if (yPosition > pageHeight - 100) {
+          doc.addPage();
+          // Add header to new page
+          doc.setFillColor(59, 130, 246);
+          doc.rect(0, 0, pageWidth, 85, 'F');
+          
+          doc.setTextColor(255, 255, 255);
+          doc.setFontSize(18);
+          doc.setFont('helvetica', 'bold');
+          doc.text('Mine Praktikaktiviteter', margin, 35);
+          
+          doc.setFontSize(10);
+          doc.setFont('helvetica', 'normal');
+          doc.text(`Genereret: ${today}`, pageWidth - 100, 35);
+          
+          yPosition = 100;
+        }
+
+        doc.setFillColor(139, 92, 246);
+        doc.rect(margin, yPosition, maxWidth, 30, 'F');
+        
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Refleksion:', margin + 15, yPosition + 20);
+        
+        yPosition += 45;
+        
+        // Reflection questions
+        const reflectionSections = [
+          { key: 'oplevelse', title: 'Oplevelse' },
+          { key: 'refleksion', title: 'Refleksion' },
+          { key: 'teori', title: 'Teori' },
+          { key: 'handling', title: 'Handling' }
+        ];
+        
+        reflectionSections.forEach(section => {
+          if (activity.reflection[section.key]) {
+            // Check if we need a new page
+            if (yPosition > pageHeight - 80) {
+              doc.addPage();
+              yPosition = margin;
+            }
+
+            doc.setFillColor(243, 244, 246);
+            doc.rect(margin, yPosition, maxWidth, 60, 'F');
+            
+            doc.setTextColor(75, 85, 99);
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'bold');
+            doc.text(section.title, margin + 15, yPosition + 20);
+            
+            doc.setTextColor(55, 65, 81);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            
+            const questionLines = doc.splitTextToSize(activity.reflection[section.key], maxWidth - 20);
+            let questionY = yPosition + 35;
+            questionLines.forEach(line => {
+              if (questionY > yPosition + 55) {
+                // Extend the box if needed
+                doc.setFillColor(243, 244, 246);
+                doc.rect(margin, yPosition + 60, maxWidth, 20, 'F');
+                yPosition += 20;
+              }
+              doc.text(line, margin + 10, questionY);
+              questionY += 5;
+            });
+            
+            yPosition += 75;
+          }
+        });
+      }
       yPosition += 20;
       
       // Separator linje mellem aktiviteter (undtagen efter sidste)
