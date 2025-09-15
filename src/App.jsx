@@ -843,7 +843,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
       }}>
         <h1 style={{
           color: "#ffffff",
-          fontSize: window.innerWidth <= 480 ? "20px" : window.innerWidth <= 768 ? "24px" : "32px",
+          fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "20px" : window.innerWidth <= 768 ? "24px" : "32px",
           marginBottom: window.innerWidth <= 768 ? "15px" : "20px",
           fontWeight: "600",
           fontFamily: "Montserrat, sans-serif",
@@ -875,7 +876,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
               borderRadius: "5px",
               cursor: "pointer",
               border: "none",
-              fontSize: window.innerWidth <= 480 ? "16px" : window.innerWidth <= 768 ? "14px" : "16px",
+              fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "16px" : window.innerWidth <= 768 ? "14px" : "16px",
               width: "100%",
               boxSizing: "border-box",
               textAlign: "center",
@@ -891,7 +893,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
             <p style={{ 
               marginTop: "10px", 
               color: "#374151", 
-              fontSize: window.innerWidth <= 480 ? "13px" : "14px",
+              fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "13px" : "14px",
               fontStyle: "italic",
               wordBreak: "break-all"
             }}>
@@ -901,12 +904,14 @@ ${(goals["færdighedsmål"] || []).join("\n")}
           {loadingPdf && <p style={{ 
             marginTop: "10px", 
             color: "#374151", 
-            fontSize: window.innerWidth <= 480 ? "14px" : "16px" 
+            fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : "16px" 
           }}>📄 Indlæser PDF...</p>}
           {loadingSummary && <p style={{ 
             marginTop: "10px", 
             color: "#374151", 
-            fontSize: window.innerWidth <= 480 ? "14px" : "16px" 
+            fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : "16px" 
           }}>✨ Opsummerer læreplan...</p>}
         </div>
 
@@ -920,7 +925,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
         }}>
           <h2 style={{
             color: "#374151",
-            fontSize: window.innerWidth <= 480 ? "16px" : window.innerWidth <= 768 ? "18px" : "20px",
+            fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "16px" : window.innerWidth <= 768 ? "18px" : "20px",
             marginBottom: window.innerWidth <= 768 ? "12px" : "15px",
             fontWeight: "600",
             fontFamily: "Montserrat, sans-serif"
@@ -949,7 +955,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                         border: "none",
                         borderRadius: "8px 8px 0 0",
                         cursor: "pointer",
-                        fontSize: window.innerWidth <= 480 ? "12px" : "14px",
+                        fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "12px" : "14px",
                         fontWeight: "600",
                         fontFamily: "Montserrat, sans-serif",
                         transition: "all 0.2s ease",
@@ -991,7 +998,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                   <div style={{ 
                     color: "#4b5563", 
                     lineHeight: "1.5", 
-                    fontSize: window.innerWidth <= 480 ? "14px" : "15px",
+                    fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : "15px",
                     marginBottom: "10px"
                   }}>
                     {(() => {
@@ -1008,6 +1016,7 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                   color: "#1f2937",
                                   marginBottom: "12px",
                                   fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "16px" : "18px",
                                   fontFamily: "Montserrat, sans-serif"
                                 }}>
                                   {jsonData.title}
@@ -1021,7 +1030,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                     fontWeight: "600",
                                     color: "#374151",
                                     marginBottom: "6px",
-                                    fontSize: window.innerWidth <= 480 ? "14px" : "16px",
+                                    fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : "16px",
                                     fontFamily: "Montserrat, sans-serif"
                                   }}>
                                     Formål og læringsmål
@@ -1030,7 +1040,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                     paddingLeft: "16px",
                                     margin: "0",
                                     lineHeight: "1.5",
-                                    fontSize: window.innerWidth <= 480 ? "13px" : "14px"
+                                    fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "13px" : "14px"
                                   }}>
                                     {Array.isArray(jsonData.goals) 
                                       ? jsonData.goals.map((goal, goalIdx) => (
@@ -1049,7 +1060,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                     fontWeight: "600",
                                     color: "#374151",
                                     marginBottom: "6px",
-                                    fontSize: window.innerWidth <= 480 ? "14px" : "16px",
+                                    fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : "16px",
                                     fontFamily: "Montserrat, sans-serif"
                                   }}>
                                     Trin-for-trin gennemførelse
@@ -1058,7 +1070,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                     paddingLeft: "16px",
                                     margin: "0",
                                     lineHeight: "1.5",
-                                    fontSize: window.innerWidth <= 480 ? "13px" : "14px"
+                                    fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "13px" : "14px"
                                   }}>
                                     {Array.isArray(jsonData.steps) 
                                       ? jsonData.steps.map((step, stepIdx) => (
@@ -1077,7 +1090,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                     fontWeight: "600",
                                     color: "#374151",
                                     marginBottom: "8px",
-                                    fontSize: window.innerWidth <= 480 ? "14px" : "16px",
+                                    fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : "16px",
                                     fontFamily: "Montserrat, sans-serif"
                                   }}>
                                     Refleksion
@@ -1090,11 +1104,13 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                         fontWeight: "600",
                                         color: "#4b5563",
                                         marginBottom: "3px",
-                                        fontSize: window.innerWidth <= 480 ? "12px" : "14px"
+                                        fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "12px" : "14px"
                                       }}>
                                         Oplevelse
                                       </h5>
-                                      <p style={{ margin: "0", lineHeight: "1.4", color: "#374151", fontSize: window.innerWidth <= 480 ? "12px" : "13px" }}>
+                                      <p style={{ margin: "0", lineHeight: "1.4", color: "#374151", fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "12px" : "13px" }}>
                                         {jsonData.reflection.oplevelse}
                                       </p>
                                     </div>
@@ -1107,11 +1123,13 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                         fontWeight: "600",
                                         color: "#4b5563",
                                         marginBottom: "3px",
-                                        fontSize: window.innerWidth <= 480 ? "12px" : "14px"
+                                        fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "12px" : "14px"
                                       }}>
                                         Refleksion
                                       </h5>
-                                      <p style={{ margin: "0", lineHeight: "1.4", color: "#374151", fontSize: window.innerWidth <= 480 ? "12px" : "13px" }}>
+                                      <p style={{ margin: "0", lineHeight: "1.4", color: "#374151", fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "12px" : "13px" }}>
                                         {jsonData.reflection.refleksion}
                                       </p>
                                     </div>
@@ -1124,11 +1142,13 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                         fontWeight: "600",
                                         color: "#4b5563",
                                         marginBottom: "3px",
-                                        fontSize: window.innerWidth <= 480 ? "12px" : "14px"
+                                        fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "12px" : "14px"
                                       }}>
                                         Teori
                                       </h5>
-                                      <p style={{ margin: "0", lineHeight: "1.4", color: "#374151", fontSize: window.innerWidth <= 480 ? "12px" : "13px" }}>
+                                      <p style={{ margin: "0", lineHeight: "1.4", color: "#374151", fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "12px" : "13px" }}>
                                         {jsonData.reflection.teori}
                                       </p>
                                     </div>
@@ -1141,11 +1161,13 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                         fontWeight: "600",
                                         color: "#4b5563",
                                         marginBottom: "3px",
-                                        fontSize: window.innerWidth <= 480 ? "12px" : "14px"
+                                        fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "12px" : "14px"
                                       }}>
                                         Handling
                                       </h5>
-                                      <p style={{ margin: "0", lineHeight: "1.4", color: "#374151", fontSize: window.innerWidth <= 480 ? "12px" : "13px" }}>
+                                      <p style={{ margin: "0", lineHeight: "1.4", color: "#374151", fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "12px" : "13px" }}>
                                         {jsonData.reflection.handling}
                                       </p>
                                     </div>
@@ -1174,7 +1196,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                   color: "#1f2937",
                                   marginTop: lineIdx > 0 ? "8px" : "0",
                                   marginBottom: "4px",
-                                  fontSize: window.innerWidth <= 480 ? "13px" : "14px"
+                                  fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "13px" : "14px"
                                 }}>
                                   {line.replace(/\*\*/g, '')}
                                 </div>
@@ -1213,7 +1236,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                       padding: window.innerWidth <= 480 ? "10px" : "8px",
                       borderRadius: "4px",
                       border: "1px solid #d1d5db",
-                      fontSize: window.innerWidth <= 480 ? "16px" : "14px",
+                      fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "16px" : "14px",
                       fontFamily: "inherit",
                       resize: "vertical"
                     }}
@@ -1230,7 +1254,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                       borderRadius: "4px",
                       cursor: "pointer",
                       transition: "background-color 0.2s ease",
-                      fontSize: window.innerWidth <= 480 ? "14px" : "13px",
+                      fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : "13px",
                       fontWeight: "500"
                     }}
                     onMouseEnter={(e) => e.target.style.backgroundColor = "#dc2626"}
@@ -1264,7 +1289,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
               cursor: activities.length === 0 ? "not-allowed" : "pointer",
               width: "100%",
               boxSizing: "border-box",
-              fontSize: window.innerWidth <= 480 ? "16px" : window.innerWidth <= 768 ? "14px" : "16px",
+              fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "16px" : window.innerWidth <= 768 ? "14px" : "16px",
               transition: "background-color 0.2s ease",
               fontWeight: "500",
               marginTop: "15px",
@@ -1304,7 +1330,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
         }}>
           <h2 style={{
             color: "#374151",
-            fontSize: window.innerWidth <= 480 ? "16px" : window.innerWidth <= 768 ? "18px" : "20px",
+            fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "16px" : window.innerWidth <= 768 ? "18px" : "20px",
             marginBottom: window.innerWidth <= 768 ? "12px" : "15px",
             fontWeight: "600",
             fontFamily: "Montserrat, sans-serif"
@@ -1312,7 +1339,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
           {loadingSummary ? (
             <p style={{ 
               color: "#6b7280", 
-              fontSize: window.innerWidth <= 480 ? "14px" : "16px" 
+              fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : "16px" 
             }}>✨ GPT arbejder...</p>
           ) : (
             <div style={{
@@ -1324,7 +1352,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
               wordWrap: "break-word",
               maxHeight: window.innerWidth <= 480 ? "180px" : window.innerWidth <= 768 ? "200px" : "300px",
               overflowY: "auto",
-              fontSize: window.innerWidth <= 480 ? "14px" : window.innerWidth <= 768 ? "13px" : "14px",
+              fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : window.innerWidth <= 768 ? "13px" : "14px",
               lineHeight: "1.5",
               color: "#374151"
             }}>
@@ -1343,7 +1372,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
         }}>
           <h2 style={{
             color: "#374151",
-            fontSize: window.innerWidth <= 480 ? "16px" : window.innerWidth <= 768 ? "18px" : "20px",
+            fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "16px" : window.innerWidth <= 768 ? "18px" : "20px",
             marginBottom: window.innerWidth <= 768 ? "12px" : "15px",
             fontWeight: "600",
             fontFamily: "Montserrat, sans-serif"
@@ -1359,7 +1389,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
               border: "1px solid #d1d5db",
               backgroundColor: "#fff",
               color: "#374151",
-              fontSize: window.innerWidth <= 480 ? "16px" : window.innerWidth <= 768 ? "14px" : "16px"
+              fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "16px" : window.innerWidth <= 768 ? "14px" : "16px"
             }}
           >
             <option value="">Vælg profil</option>
@@ -1381,7 +1412,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
             }}>
               <h3 style={{
                 color: "#374151",
-                fontSize: window.innerWidth <= 480 ? "15px" : window.innerWidth <= 768 ? "16px" : "18px",
+                fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "15px" : window.innerWidth <= 768 ? "16px" : "18px",
                 marginBottom: window.innerWidth <= 768 ? "8px" : "10px",
                 fontWeight: "600",
                 fontFamily: "Montserrat, sans-serif"
@@ -1403,7 +1435,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                               fontWeight: "600", 
                               color: "#374151", 
                               fontFamily: "Montserrat, sans-serif",
-                              fontSize: window.innerWidth <= 480 ? "14px" : "16px"
+                              fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : "16px"
                             }}>
                               {title}
                             </h4>
@@ -1411,7 +1444,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                               margin: "0", 
                               lineHeight: "1.5", 
                               color: "#374151",
-                              fontSize: window.innerWidth <= 480 ? "13px" : "14px"
+                              fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "13px" : "14px"
                             }}>{praktikMatch[2]}</p>
                           </div>
                         );
@@ -1420,7 +1454,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                         margin: "0 0 10px 0", 
                         lineHeight: "1.5", 
                         color: "#374151",
-                        fontSize: window.innerWidth <= 480 ? "13px" : "14px"
+                        fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "13px" : "14px"
                       }}>{m}</p>;
                     })
                   : (() => {
@@ -1439,7 +1474,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                               fontWeight: "600", 
                               color: "#374151", 
                               fontFamily: "Montserrat, sans-serif",
-                              fontSize: window.innerWidth <= 480 ? "14px" : "16px"
+                              fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : "16px"
                             }}>
                               {title}
                             </h4>
@@ -1447,7 +1483,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                               margin: "0", 
                               lineHeight: "1.5", 
                               color: "#374151",
-                              fontSize: window.innerWidth <= 480 ? "13px" : "14px"
+                              fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "13px" : "14px"
                             }}>{praktikMatch[2]}</p>
                           </div>
                         );
@@ -1456,14 +1493,16 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                         margin: "0", 
                         lineHeight: "1.5", 
                         color: "#374151",
-                        fontSize: window.innerWidth <= 480 ? "13px" : "14px"
+                        fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "13px" : "14px"
                       }}>{m}</p>;
                     })()}
               </div>
 
               <h3 style={{
                 color: "#374151",
-                fontSize: window.innerWidth <= 480 ? "15px" : window.innerWidth <= 768 ? "16px" : "18px",
+                fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "15px" : window.innerWidth <= 768 ? "16px" : "18px",
                 marginBottom: window.innerWidth <= 768 ? "8px" : "10px",
                 fontWeight: "600",
                 fontFamily: "Montserrat, sans-serif"
@@ -1471,7 +1510,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
               <ul style={{ 
                 color: "#374151", 
                 lineHeight: "1.5",
-                fontSize: window.innerWidth <= 480 ? "13px" : "14px",
+                fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "13px" : "14px",
                 paddingLeft: window.innerWidth <= 480 ? "16px" : "20px"
               }}>
                 {(goals["vidensmål"] || []).map((m, i) => <li key={i}>{m}</li>)}
@@ -1479,7 +1519,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
 
               <h3 style={{
                 color: "#374151",
-                fontSize: window.innerWidth <= 480 ? "15px" : window.innerWidth <= 768 ? "16px" : "18px",
+                fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "15px" : window.innerWidth <= 768 ? "16px" : "18px",
                 marginBottom: window.innerWidth <= 768 ? "8px" : "10px",
                 fontWeight: "600",
                 fontFamily: "Montserrat, sans-serif"
@@ -1487,7 +1528,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
               <ul style={{ 
                 color: "#374151", 
                 lineHeight: "1.5",
-                fontSize: window.innerWidth <= 480 ? "13px" : "14px",
+                fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "13px" : "14px",
                 paddingLeft: window.innerWidth <= 480 ? "16px" : "20px"
               }}>
                 {(goals["færdighedsmål"] || []).map((m, i) => <li key={i}>{m}</li>)}
@@ -1505,7 +1547,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
         }}>
           <h2 style={{
             color: "#374151",
-            fontSize: window.innerWidth <= 480 ? "16px" : window.innerWidth <= 768 ? "18px" : "20px",
+            fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "16px" : window.innerWidth <= 768 ? "18px" : "20px",
             marginBottom: window.innerWidth <= 768 ? "12px" : "15px",
             fontWeight: "600",
             fontFamily: "Montserrat, sans-serif"
@@ -1522,7 +1565,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
               cursor: loadingSuggestion ? "not-allowed" : "pointer",
               width: "100%",
               boxSizing: "border-box",
-              fontSize: window.innerWidth <= 480 ? "16px" : window.innerWidth <= 768 ? "14px" : "16px",
+              fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "16px" : window.innerWidth <= 768 ? "14px" : "16px",
               marginBottom: window.innerWidth <= 768 ? "12px" : "10px",
               transition: "background-color 0.2s ease",
               fontWeight: "500",
@@ -1552,7 +1596,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
             wordWrap: "break-word",
             maxHeight: window.innerWidth <= 480 ? "300px" : window.innerWidth <= 768 ? "350px" : "400px",
             overflowY: "auto",
-            fontSize: window.innerWidth <= 480 ? "14px" : window.innerWidth <= 768 ? "13px" : "14px",
+            fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : window.innerWidth <= 768 ? "13px" : "14px",
             lineHeight: "1.5",
             color: "#374151",
             marginBottom: window.innerWidth <= 768 ? "12px" : "10px"
@@ -1572,7 +1617,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                               fontWeight: "700",
                               color: "#1f2937",
                               marginBottom: "16px",
-                              fontSize: window.innerWidth <= 480 ? "18px" : "20px",
+                              fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "18px" : "20px",
                               fontFamily: "Montserrat, sans-serif"
                             }}>
                               {jsonData.title}
@@ -1587,6 +1633,7 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                 color: "#374151",
                                 marginBottom: "8px",
                                 fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "16px" : "18px",
                                 fontFamily: "Montserrat, sans-serif"
                               }}>
                                 Formål og læringsmål
@@ -1614,6 +1661,7 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                 color: "#374151",
                                 marginBottom: "8px",
                                 fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "16px" : "18px",
                                 fontFamily: "Montserrat, sans-serif"
                               }}>
                                 Trin-for-trin gennemførelse
@@ -1641,6 +1689,7 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                 color: "#374151",
                                 marginBottom: "12px",
                                 fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "16px" : "18px",
                                 fontFamily: "Montserrat, sans-serif"
                               }}>
                                 Refleksion
@@ -1653,7 +1702,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                     fontWeight: "600",
                                     color: "#4b5563",
                                     marginBottom: "4px",
-                                    fontSize: window.innerWidth <= 480 ? "14px" : "16px"
+                                    fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : "16px"
                                   }}>
                                     Oplevelse
                                   </h5>
@@ -1670,7 +1720,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                     fontWeight: "600",
                                     color: "#4b5563",
                                     marginBottom: "4px",
-                                    fontSize: window.innerWidth <= 480 ? "14px" : "16px"
+                                    fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : "16px"
                                   }}>
                                     Refleksion
                                   </h5>
@@ -1687,7 +1738,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                     fontWeight: "600",
                                     color: "#4b5563",
                                     marginBottom: "4px",
-                                    fontSize: window.innerWidth <= 480 ? "14px" : "16px"
+                                    fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : "16px"
                                   }}>
                                     Teori
                                   </h5>
@@ -1704,7 +1756,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                                     fontWeight: "600",
                                     color: "#4b5563",
                                     marginBottom: "4px",
-                                    fontSize: window.innerWidth <= 480 ? "14px" : "16px"
+                                    fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "14px" : "16px"
                                   }}>
                                     Handling
                                   </h5>
@@ -1737,7 +1790,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                               color: "#1f2937",
                               marginTop: index > 0 ? "12px" : "0",
                               marginBottom: "6px",
-                              fontSize: window.innerWidth <= 480 ? "15px" : "16px"
+                              fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "15px" : "16px"
                             }}>
                               {line.replace(/\*\*/g, '')}
                             </div>
@@ -1786,7 +1840,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
               cursor: "pointer",
               width: "100%",
               boxSizing: "border-box",
-              fontSize: window.innerWidth <= 480 ? "16px" : window.innerWidth <= 768 ? "14px" : "16px",
+              fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                                fontFamily: "Montserrat, sans-serif"<= 480 ? "16px" : window.innerWidth <= 768 ? "14px" : "16px",
               transition: "background-color 0.2s ease",
               fontWeight: "500"
             }}
