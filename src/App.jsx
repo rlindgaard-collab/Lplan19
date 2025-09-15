@@ -1,6 +1,60 @@
 import { useState, useEffect } from "react";
 import { jsPDF } from "jspdf";
 
+// --- Helper: robust JSON coercion for model output ---
+function coerceActivityJSON(raw) {
+  if (!raw || typeof raw !== "string") return null;
+  let s = raw.trim();
+
+  // Strip code fences (```json ... ``` or ``` ... ```)
+  s = s.replace(/^```\s*json\s*/i, "").replace(/^```/, "").replace(/```\s*$/, "").trim();
+
+  // Remove zero-width & weird whitespace
+  s = s.replace(/[\u200B-\u200D\uFEFF]/g, "");
+
+  // Fix smart quotes to plain quotes
+  s = s.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+
+  // If it's a quoted JSON string (double-encoded), unquote once
+  if ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'"))) {
+    try { s = JSON.parse(s); } catch {}
+  }
+
+  // Heuristic: extract the largest {...} block
+  const first = s.indexOf("{");
+  const last = s.lastIndexOf("}");
+  if (first !== -1 && last !== -1 && last > first) {
+    s = s.slice(first, last + 1);
+  }
+
+  try {
+    const obj = JSON.parse(s);
+
+    // Normalize types: goals/steps may be string → make arrays
+    if (obj && obj.goals && !Array.isArray(obj.goals)) {
+      if (typeof obj.goals === "string") {
+        obj.goals = obj.goals.split(/\r?\n|\u2022|\-|\*/).map(t => t.trim()).filter(Boolean);
+      } else {
+        obj.goals = [String(obj.goals)];
+      }
+    }
+    if (obj && obj.steps && !Array.isArray(obj.steps)) {
+      if (typeof obj.steps === "string") {
+        obj.steps = obj.steps.split(/\r?\n|\d+\.|\u2022|\-|\*/).map(t => t.trim()).filter(Boolean);
+      } else {
+        obj.steps = [String(obj.steps)];
+      }
+    }
+    // Ensure reflection object exists
+    if (obj && typeof obj.reflection !== "object") {
+      obj.reflection = {};
+    }
+    return obj;
+  } catch (e) {
+    return null;
+  }
+}
+
 // Hent pdfjs direkte fra CDN
 import * as pdfjsLib from "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.min.mjs";
 
@@ -47,6 +101,11 @@ function App() {
   const [loadingSuggestion, setLoadingSuggestion] = useState(false);
   const [uploadedFileName, setUploadedFileName] = useState("");
   const [saveMessage, setSaveMessage] = useState("");
+  const [collapsedSections, setCollapsedSections] = useState({
+    summary: false,
+    profile: false,
+    goals: false
+  });
 
   // Tab colors for activities
   const tabColors = [
@@ -185,11 +244,13 @@ ${(goals["færdighedsmål"] || []).join("\n")}
   // Gem aktivitet (max 3)
   const saveActivity = () => {
     if (!suggestion) {
-      alert("Der er intet forslag at gemme.");
+      setSaveMessage("⚠️ Der er intet forslag at gemme.");
+      setTimeout(() => setSaveMessage(""), 3000);
       return;
     }
     if (activities.length >= 4) {
-      alert("Du kan kun gemme op til 4 aktiviteter.");
+      setSaveMessage("⚠️ Du kan kun gemme op til 4 aktiviteter.");
+      setTimeout(() => setSaveMessage(""), 3000);
       return;
     }
     setActivities([...activities, { text: suggestion, reflection: "" }]);
@@ -516,7 +577,8 @@ ${(goals["færdighedsmål"] || []).join("\n")}
               cursor: "pointer",
               border: "none",
               fontSize: window.innerWidth <= 480 ? "16px" : window.innerWidth <= 768 ? "14px" : "16px",
-              width: window.innerWidth <= 1024 ? "100%" : "auto",
+              width: "100%",
+              boxSizing: "border-box",
               textAlign: "center",
               transition: "background-color 0.2s ease",
               fontWeight: "500"
@@ -636,7 +698,7 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                     {(() => {
                       // Try to parse as JSON first
                       try {
-                        const jsonData = JSON.parse(activities[activeTab].text);
+                        const jsonData = coerceActivityJSON(activities[activeTab].text);
                         if (jsonData.title || jsonData.goals || jsonData.steps || jsonData.reflection) {
                           return (
                             <div style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
@@ -901,11 +963,13 @@ ${(goals["færdighedsmål"] || []).join("\n")}
               border: "none",
               borderRadius: "5px",
               cursor: activities.length === 0 ? "not-allowed" : "pointer",
-              width: window.innerWidth <= 1024 ? "100%" : "auto",
+              width: "100%",
+              boxSizing: "border-box",
               fontSize: window.innerWidth <= 480 ? "16px" : window.innerWidth <= 768 ? "14px" : "16px",
               transition: "background-color 0.2s ease",
               fontWeight: "500",
-              marginTop: "15px"
+              marginTop: "15px",
+              boxSizing: "border-box"
             }}
             onMouseEnter={(e) => {
               if (activities.length > 0) {
@@ -1157,11 +1221,13 @@ ${(goals["færdighedsmål"] || []).join("\n")}
               border: "none",
               borderRadius: "5px",
               cursor: loadingSuggestion ? "not-allowed" : "pointer",
-              width: window.innerWidth <= 1024 ? "100%" : "auto",
+              width: "100%",
+              boxSizing: "border-box",
               fontSize: window.innerWidth <= 480 ? "16px" : window.innerWidth <= 768 ? "14px" : "16px",
               marginBottom: window.innerWidth <= 768 ? "12px" : "10px",
               transition: "background-color 0.2s ease",
-              fontWeight: "500"
+              fontWeight: "500",
+              boxSizing: "border-box"
             }}
             onMouseEnter={(e) => {
               if (!loadingSuggestion) {
@@ -1176,27 +1242,28 @@ ${(goals["færdighedsmål"] || []).join("\n")}
               }
             }}
           >
-            {loadingSuggestion ? "⏳ Genererer forslag..." : "Lav forslag"}
+            {loadingSuggestion ? "✨ GPT arbejder..." : "Lav forslag"}
           </button>
           <div style={{
             border: "1px solid #d1d5db",
             padding: window.innerWidth <= 480 ? "10px" : "12px",
             borderRadius: "8px",
             backgroundColor: "#f9fafb",
-            maxHeight: window.innerWidth <= 480 ? "180px" : window.innerWidth <= 768 ? "200px" : "300px",
+            whiteSpace: "pre-wrap",
+            wordWrap: "break-word",
+            maxHeight: window.innerWidth <= 480 ? "300px" : window.innerWidth <= 768 ? "350px" : "400px",
             overflowY: "auto",
             fontSize: window.innerWidth <= 480 ? "14px" : window.innerWidth <= 768 ? "13px" : "14px",
             lineHeight: "1.5",
-            marginTop: window.innerWidth <= 768 ? "12px" : "10px",
-            marginBottom: window.innerWidth <= 768 ? "12px" : "10px",
-            color: "#374151"
+            color: "#374151",
+            marginBottom: window.innerWidth <= 768 ? "12px" : "10px"
           }}>
             {suggestion ? (
               <div style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
                 {(() => {
                   // Try to parse as JSON first
                   try {
-                    const jsonData = JSON.parse(suggestion);
+                    const jsonData = coerceActivityJSON(suggestion);
                     if (jsonData.title || jsonData.goals || jsonData.steps || jsonData.reflection) {
                       return (
                         <div style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
@@ -1404,7 +1471,7 @@ ${(goals["færdighedsmål"] || []).join("\n")}
                 textAlign: "center",
                 padding: "20px"
               }}>
-                Klik på 'Lav forslag' for at få et aktivitetsforslag baseret på din læreplan og kompetencemål.
+                Klik på 'Lav forslag\' for at få et aktivitetsforslag baseret på din læreplan og kompetencemål.
               </div>
             )}
           </div>
@@ -1412,35 +1479,21 @@ ${(goals["færdighedsmål"] || []).join("\n")}
             onClick={saveActivity}
             style={{
               padding: window.innerWidth <= 480 ? "14px 18px" : window.innerWidth <= 768 ? "12px 16px" : "10px 20px",
-              backgroundColor: "#000000",
+              backgroundColor: saveMessage.includes("✅") ? "#10b981" : 
+                              saveMessage.includes("⚠️") ? "#ef4444" : "#3b82f6",
               color: "white",
               border: "none",
               borderRadius: "5px",
               cursor: "pointer",
-              width: window.innerWidth <= 1024 ? "100%" : "auto",
+              width: "100%",
+              boxSizing: "border-box",
               fontSize: window.innerWidth <= 480 ? "16px" : window.innerWidth <= 768 ? "14px" : "16px",
               transition: "background-color 0.2s ease",
               fontWeight: "500"
             }}
-            onMouseEnter={(e) => e.target.style.backgroundColor = "#333333"}
-            onMouseLeave={(e) => e.target.style.backgroundColor = "#000000"}
           >
-            Gem aktivitet
+            {saveMessage || "Gem aktivitet"}
           </button>
-          {saveMessage && (
-            <div style={{
-              marginTop: "10px",
-              padding: "8px 12px",
-              backgroundColor: "#10b981",
-              color: "white",
-              borderRadius: "4px",
-              fontSize: window.innerWidth <= 480 ? "14px" : "15px",
-              fontWeight: "500",
-              textAlign: "center"
-            }}>
-              {saveMessage}
-            </div>
-          )}
         </div>
       </div>
     </div>
